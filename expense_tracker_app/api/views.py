@@ -129,7 +129,7 @@ from expense_tracker_app.api.pagination import ExpenseListPagination
 #             expense.delete()
 #             return Response(status = status.HTTP_204_NO_CONTENT)
 
-        
+    
 # Using Generics
 class ExpenseListView(ListCreateAPIView):
     # queryset = Expense.objects.all()  # We dont like this, because if we do every user will be able to see everyone's expenses
