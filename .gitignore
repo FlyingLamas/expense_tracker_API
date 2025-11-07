@@ -1,0 +1,23 @@
+*.log
+*.pot
+*.pyc
+__pycache__/
+db.sqlite3
+/static/
+media/
+.env
+.vscode
+*.sqlite3
+.DS_Store
+
+# For Virtual environment otherwise it will upload all local python packages.
+venv/
+env/
+.venv/
+.menv/
+
+.idea/
+
+build/
+dist/
+*.egg-info/
