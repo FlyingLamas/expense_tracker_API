@@ -184,7 +184,7 @@ class CategoryView(ListAPIView):
     
     def get(self, request, *args, **kwargs):
         queryset = Expense.objects.filter(owner = request.user).values("category")
-        summary = queryset.annotate(
+        summary = queryset.aggregate(
             Total_amount = Sum("amount"),
             Average = Avg("amount"),
             Maximum_amount = Max("amount"),
