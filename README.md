@@ -1,6 +1,6 @@
 Expense Tracker API (Django REST Framework)
 
-A secure and fully-featured RESTful API for tracking personal expenses, built using Django REST Framework (DRF).
+A secure and fully featured RESTful API for tracking personal expenses, built using Django REST Framework (DRF).
 This API allows users to record expenses, categorize them, generate reports, and manage their financial data securely.
 
 Features
