@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 load_dotenv()
+# For enabling token roation in simple_JWT below
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,8 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "expense_tracker_app",
     "rest_framework",
-    "rest_framework.authtoken",     # This is added to add a new column in database table, for tokens, which will be one per individual
+    # "rest_framework.authtoken",     # This is added to add a new column in database table, for tokens, which will be one per individual
     "django_filters",
+    "rest_framework_simplejwt.token_blacklist",     # For JWT
 ]
 
 MIDDLEWARE = [
@@ -132,8 +135,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
            
-    'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.TokenAuthentication',
-                                       'rest_framework.authentication.SessionAuthentication'],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+                                        # 'rest_framework.authentication.TokenAuthentication',
+                                        # 'rest_framework.authentication.SessionAuthentication',
+                                        'rest_framework_simplejwt.authentication.JWTAuthentication',
+                                       ],
     
     
     # 'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
@@ -141,7 +147,14 @@ REST_FRAMEWORK = {
     # Following is the global setting for pagination, we will be using custome ones not this one.
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     # 'PAGE_SIZE': 2,
-    
-    
   
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=10),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION":True,
+    "AUTH_HEADER_TYPES": ("Bearer",),
 }

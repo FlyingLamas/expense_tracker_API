@@ -132,6 +132,7 @@ from expense_tracker_app.api.pagination import ExpenseListPagination
     
 # Using Generics
 class ExpenseListView(ListCreateAPIView):
+    """ This class does 2 things, GET(List expenses) and POST(Create a new expense). """
     # queryset = Expense.objects.all()  # We dont like this, because if we do every user will be able to see everyone's expenses
                                         # So we overwrite it with get_queryset Method, where we filter the expenses only for the logged in user.
     serializer_class = ExpenseSerializer
@@ -143,6 +144,7 @@ class ExpenseListView(ListCreateAPIView):
     
     pagination_class = ExpenseListPagination  
     
+    # Following function ensures that users only see. their expenses and thus data is secure.
     def get_queryset(self):
         return Expense.objects.filter(owner = self.request.user)
     
@@ -154,6 +156,8 @@ class ExpenseListView(ListCreateAPIView):
     # And perform_create is ONLY used when new data is created - that happens in POST.
     
 class ExpenseDetailView(RetrieveUpdateDestroyAPIView):
+    """ This handles:GET one expense, PUT/PATCH update,DELETE. """
+    
     serializer_class = ExpenseSerializer
     permission_classes = [IsAuthenticated]
     
@@ -179,7 +183,7 @@ class ReportView(RetrieveAPIView):
         return Response(summary, status = status.HTTP_200_OK)
     
 class CategoryView(ListAPIView):
-    
+    """ This is incomplete. Work under progress. """
     permission_classes = [IsAuthenticated]
     
     def get(self, request, *args, **kwargs):
@@ -224,3 +228,7 @@ class MonthlyReportView(APIView):
             count = Count("id"),
         )
         return Response(summary, status = status.HTTP_200_OK)
+
+
+class LogoutView(APIView):
+    pass
