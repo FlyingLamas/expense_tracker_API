@@ -42,5 +42,5 @@ Tech Stack
   - Backend: Django, Django REST Framework
   - Database: Sqlite
   - Authentication: Token Authentication
-  - Filtering: Django Filter Backend
+
 
